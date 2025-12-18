@@ -1,0 +1,5 @@
+{
+  "name": "NostrSlide",
+  "description": "Turn any Nostr reply tree into a beautiful, presentation-ready image slideshow.",
+  "requestFramePermissions": []
+}

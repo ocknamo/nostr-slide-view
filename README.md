@@ -1,96 +1,67 @@
-# ⚡️ NostrSlide
+# NostrSlide
 
-Nostrのスレッドを、美しくプレゼンテーション可能なスライドショーに変換するWebアプリケーションです。
+NostrSlide is a web application that converts Nostr threads into beautiful, presentation-ready slideshows.
 
-## 🌟 概要
+## Overview
 
-NostrSlideは、分散型SNSプロトコル「Nostr」上の連投投稿（スレッド）を解析し、含まれている画像とテキストを抽出して即座にスライドショー形式で表示します。技術解説、ポートフォリオの展示、あるいは単なる写真共有を、特別な準備なしにプレゼンテーションへと変貌させます。
+NostrSlide analyzes reply threads on the decentralized social networking protocol "Nostr", extracts images and text, and instantly displays them as a slideshow. Transform technical explanations, portfolios, or photo shares into presentations without any special preparation.
 
-## ✨ 主な機能
+## Features
 
--   **スレッド自動解析**: `nevent1...` や `note1...` のIDを入力するだけで、リプライツリー全体から画像を収集。
--   **プレゼンテーション・モード**: フルスクリーン対応、キーボードショートカット（矢印キー、スペース）による直感的な操作。
--   **多機能エクスポート**:
-    -   **PDF**: 印刷レイアウトに最適化された形式で保存。
-    -   **Markdown**: ブログやドキュメントに貼り付け可能な形式で出力。
-    -   **JSON**: 生データをアーカイブとして保持。
--   **多言語対応**: 日本語と英語の完全な翻訳を搭載。
--   **レスポンスシブデザイン**: PCのブラウザからスマホのタッチ操作まで幅広く対応。
+- Thread Auto-Analysis: Simply enter an event ID (nevent1... or note1...) to gather images from the entire reply tree.
+- Presentation Mode: Fullscreen support with intuitive keyboard shortcuts (Arrow keys, Space).
+- Export Options:
+  - PDF: Optimized for print layouts.
+  - Markdown: Format suitable for blogs or documentation.
+  - JSON: Keep raw data as an archive.
+- Multi-language: Full support for English and Japanese.
+- Responsive Design: Works across desktop browsers and mobile touch devices.
 
-## 🚀 セットアップと実行
+## Setup and Execution
 
-このプロジェクトは、最新のWeb標準とESモジュールを利用しており、複雑なビルド工程なしで動作するように設計されています。
+This project uses modern web standards and ES modules, designed to run without complex build processes.
 
-### 開発環境での実行
+### Running in Development
 
-1.  **リポジトリのクローン**
-    ```bash
-    git clone [repository-url]
-    cd nostr-slide
-    ```
+1. Clone the repository
+   ```bash
+   git clone [repository-url]
+   cd nostr-slide
+   ```
 
-2.  **依存関係のインストール**
-    本プロジェクトはブラウザ上で直接ESMを読み込む構成ですが、ローカルサーバーを立てて開発することをお勧めします。
-    ```bash
-    # npmを使用する場合
-    npm install
-    npm run dev
-    ```
+2. Install dependencies
+   ```bash
+   npm install
+   ```
 
-3.  **ブラウザで確認**
-    `http://localhost:3000`（またはツールが指定するポート）を開きます。
+3. Open in Browser
+   Navigate to http://localhost:3000 (or the port specified by your tool).
 
-## 📖 使い方
+### Quality Assurance
 
-1.  **Nostrでスレッドを作成する**:
-    -   DamusやAmethystなどのクライアントを使用し、最初の投稿を行います。
-    -   その投稿に対して、スライドにしたい画像と説明文を順番に「リプライ」として投稿します。
-2.  **IDを取得する**:
-    -   最初の投稿の「イベントID（nevent1...）」をコピーします。
-3.  **スライドを表示する**:
-    -   NostrSlideの入力欄にIDを貼り付け、「スライドを表示する」をクリックします。
-4.  **操作方法**:
-    -   `→` / `Space`: 次のスライド
-    -   `←`: 前のスライド
-    -   `f`: フルスクリーン
-    -   `g`: 一覧表示（グリッドモード）
-    -   `e`: エクスポートメニュー表示
+- **Formatting**: Run `npm run format` to format code using Biome.
+- **Testing**: Run `npm test` to execute unit tests using Vitest.
 
-## 📂 ディレクトリ構成
+## How to Use
 
-```text
-.
-├── index.html          # エントリーポイント・ベーススタイル
-├── index.tsx           # Reactマウント・初期化
-├── App.tsx             # メインアプリケーションロジック・状態管理
-├── types.ts            # 型定義
-├── translations.ts     # 多言語翻訳データ
-├── constants.tsx       # アイコン・定数定義
-├── components/         # UIコンポーネント
-│   ├── InputForm.tsx   # ランディング・モーダル入力
-│   └── SlideDeck.tsx   # スライド表示・操作・エクスポート
-├── services/           # ロジック・外部通信
-│   └── nostrService.ts # Nostrリレーとの通信・データ解析
-├── LICENSE             # MITライセンス
-└── metadata.json       # アプリケーションメタデータ
-```
+1. Create a Thread on Nostr:
+   - Use a client like Damus or Amethyst to make an initial post.
+   - Reply to that post with images and descriptions in order.
+2. Get the ID:
+   - Copy the "Event ID (nevent1...)" of the first post.
+3. Display the Slide:
+   - Paste the ID into the NostrSlide input field and click "Launch Slideshow".
+4. Controls:
+   - Right Arrow / Space: Next slide
+   - Left Arrow: Previous slide
+   - f: Fullscreen
+   - g: Grid view (All slides)
+   - e: Export menu
 
-## 🛠 技術スタック
+## Author
 
--   **Frontend**: React 19, TypeScript
--   **Styling**: Tailwind CSS
--   **Nostr**: nostr-tools (v2)
--   **Icons**: Custom SVG Icons
--   **Module Management**: esm.sh (No-build oriented)
+- ocknamo
 
-## 👤 作者
+## License
 
--   **ocknamo**
-
-## 🤝 貢献について
-
-不具合の報告や新機能の提案は、IssueまたはPull Requestにて受け付けています。
-
-## 📄 ライセンス
-
-このプロジェクトは [MIT License](LICENSE) のもとで公開されています。
+This project is licensed under the [MIT License](LICENSE).

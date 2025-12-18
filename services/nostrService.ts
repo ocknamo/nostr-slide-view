@@ -1,3 +1,4 @@
+
 import { SimplePool } from 'nostr-tools';
 import { NostrEvent, SlideData } from '../types';
 
@@ -7,7 +8,8 @@ const RELAYS = [
   'wss://relay.nostr.band',
   'wss://nos.lol',
   'wss://relay.snort.social',
-  'wss://relay.primal.net'
+  'wss://relay.primal.net',
+  'wss://yabu.me/'
 ];
 
 // Regex to find image URLs

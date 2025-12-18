@@ -1,20 +1,96 @@
-<div align="center">
-<img width="1200" height="475" alt="GHBanner" src="https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6" />
-</div>
+# ⚡️ NostrSlide
 
-# Run and deploy your AI Studio app
+Nostrのスレッドを、美しくプレゼンテーション可能なスライドショーに変換するWebアプリケーションです。
 
-This contains everything you need to run your app locally.
+## 🌟 概要
 
-View your app in AI Studio: https://ai.studio/apps/drive/1G4iqzFIBqaeXu-PgpL7ZSeEUIymS1bJ4
+NostrSlideは、分散型SNSプロトコル「Nostr」上の連投投稿（スレッド）を解析し、含まれている画像とテキストを抽出して即座にスライドショー形式で表示します。技術解説、ポートフォリオの展示、あるいは単なる写真共有を、特別な準備なしにプレゼンテーションへと変貌させます。
 
-## Run Locally
+## ✨ 主な機能
 
-**Prerequisites:**  Node.js
+-   **スレッド自動解析**: `nevent1...` や `note1...` のIDを入力するだけで、リプライツリー全体から画像を収集。
+-   **プレゼンテーション・モード**: フルスクリーン対応、キーボードショートカット（矢印キー、スペース）による直感的な操作。
+-   **多機能エクスポート**:
+    -   **PDF**: 印刷レイアウトに最適化された形式で保存。
+    -   **Markdown**: ブログやドキュメントに貼り付け可能な形式で出力。
+    -   **JSON**: 生データをアーカイブとして保持。
+-   **多言語対応**: 日本語と英語の完全な翻訳を搭載。
+-   **レスポンスシブデザイン**: PCのブラウザからスマホのタッチ操作まで幅広く対応。
 
+## 🚀 セットアップと実行
 
-1. Install dependencies:
-   `npm install`
-2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
-3. Run the app:
-   `npm run dev`
+このプロジェクトは、最新のWeb標準とESモジュールを利用しており、複雑なビルド工程なしで動作するように設計されています。
+
+### 開発環境での実行
+
+1.  **リポジトリのクローン**
+    ```bash
+    git clone [repository-url]
+    cd nostr-slide
+    ```
+
+2.  **依存関係のインストール**
+    本プロジェクトはブラウザ上で直接ESMを読み込む構成ですが、ローカルサーバーを立てて開発することをお勧めします。
+    ```bash
+    # npmを使用する場合
+    npm install
+    npm run dev
+    ```
+
+3.  **ブラウザで確認**
+    `http://localhost:3000`（またはツールが指定するポート）を開きます。
+
+## 📖 使い方
+
+1.  **Nostrでスレッドを作成する**:
+    -   DamusやAmethystなどのクライアントを使用し、最初の投稿を行います。
+    -   その投稿に対して、スライドにしたい画像と説明文を順番に「リプライ」として投稿します。
+2.  **IDを取得する**:
+    -   最初の投稿の「イベントID（nevent1...）」をコピーします。
+3.  **スライドを表示する**:
+    -   NostrSlideの入力欄にIDを貼り付け、「スライドを表示する」をクリックします。
+4.  **操作方法**:
+    -   `→` / `Space`: 次のスライド
+    -   `←`: 前のスライド
+    -   `f`: フルスクリーン
+    -   `g`: 一覧表示（グリッドモード）
+    -   `e`: エクスポートメニュー表示
+
+## 📂 ディレクトリ構成
+
+```text
+.
+├── index.html          # エントリーポイント・ベーススタイル
+├── index.tsx           # Reactマウント・初期化
+├── App.tsx             # メインアプリケーションロジック・状態管理
+├── types.ts            # 型定義
+├── translations.ts     # 多言語翻訳データ
+├── constants.tsx       # アイコン・定数定義
+├── components/         # UIコンポーネント
+│   ├── InputForm.tsx   # ランディング・モーダル入力
+│   └── SlideDeck.tsx   # スライド表示・操作・エクスポート
+├── services/           # ロジック・外部通信
+│   └── nostrService.ts # Nostrリレーとの通信・データ解析
+├── LICENSE             # MITライセンス
+└── metadata.json       # アプリケーションメタデータ
+```
+
+## 🛠 技術スタック
+
+-   **Frontend**: React 19, TypeScript
+-   **Styling**: Tailwind CSS
+-   **Nostr**: nostr-tools (v2)
+-   **Icons**: Custom SVG Icons
+-   **Module Management**: esm.sh (No-build oriented)
+
+## 👤 作者
+
+-   **ocknamo**
+
+## 🤝 貢献について
+
+不具合の報告や新機能の提案は、IssueまたはPull Requestにて受け付けています。
+
+## 📄 ライセンス
+
+このプロジェクトは [MIT License](LICENSE) のもとで公開されています。

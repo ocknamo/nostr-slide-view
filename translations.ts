@@ -54,6 +54,9 @@ export const translations = {
         json: 'JSONデータをダウンロード',
       },
     },
+    loading: {
+      fetchingSlides: 'スライドを取得しています...',
+    },
     errors: {
       noImages: 'このスレッドには画像が見つかりませんでした。',
       fetchFailed: '読み込みに失敗しました。IDを確認してください。',
@@ -111,6 +114,9 @@ export const translations = {
         markdown: 'Download Markdown',
         json: 'Download JSON Data',
       },
+    },
+    loading: {
+      fetchingSlides: 'Fetching slides...',
     },
     errors: {
       noImages: 'No images found in this thread.',

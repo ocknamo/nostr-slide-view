@@ -40,6 +40,15 @@ jobs:
           NODE_ENV: production
         run: npm run build
 
+      - name: Verify build output
+        run: |
+          echo "Listing dist directory contents:"
+          ls -laR dist/
+          echo "Checking if assets directory exists:"
+          test -d dist/assets && echo "✓ assets directory exists" || echo "✗ assets directory missing"
+          echo "Checking if JavaScript files exist:"
+          ls -la dist/assets/*.js 2>/dev/null && echo "✓ JS files found" || echo "✗ No JS files found"
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v4
         with:

@@ -55,10 +55,16 @@ jobs:
           tar -czf dist-backup.tar.gz dist/
           tar -tzf dist-backup.tar.gz | head -20
 
+      - name: Prepare upload directory
+        run: |
+          echo "Creating _site directory for upload..."
+          mkdir -p _site
+          cp -r dist/* _site/
+          echo "Contents of _site:"
+          ls -laR _site/
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v4
-        with:
-          path: ./dist
 
   deploy:
     environment:

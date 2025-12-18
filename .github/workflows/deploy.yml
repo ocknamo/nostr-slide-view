@@ -108,5 +108,9 @@ jobs:
           sleep 10
           echo "Checking deployed site..."
           curl -I "${{ steps.deployment.outputs.page_url }}" || true
-          echo "Checking assets directory..."
-          curl -I "${{ steps.deployment.outputs.page_url }}assets/" || true
+          echo ""
+          echo "Fetching index.html to check script tags..."
+          curl -s "${{ steps.deployment.outputs.page_url }}" | grep -A 2 -B 2 "script" || true
+          echo ""
+          echo "Checking specific JS file..."
+          curl -I "${{ steps.deployment.outputs.page_url }}assets/index-DmQ2YL0V.js" || true

@@ -23,7 +23,7 @@ export enum AppState {
   IDLE = 'IDLE',
   LOADING = 'LOADING',
   READY = 'READY',
-  ERROR = 'ERROR'
+  ERROR = 'ERROR',
 }
 
 export interface FetchStats {

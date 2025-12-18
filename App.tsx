@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { InputForm } from './components/InputForm';
 import { SlideDeck } from './components/SlideDeck';
 import { fetchThreadSlides } from './services/nostrService';
-import { SlideData, AppState, Language } from './types';
+import { type SlideData, AppState, type Language } from './types';
 import { translations } from './translations';
 
 function App() {
@@ -16,7 +16,11 @@ function App() {
 
   const isHistorySupported = () => {
     try {
-      return window.location.protocol !== 'blob:' && window.history && !!window.history.pushState;
+      return (
+        window.location.protocol !== 'blob:' &&
+        window.history &&
+        !!window.history.pushState
+      );
     } catch {
       return false;
     }
@@ -26,14 +30,14 @@ function App() {
     setAppState(AppState.LOADING);
     setError('');
     setCurrentId(input);
-    
+
     if (isHistorySupported()) {
       try {
         const url = new URL(window.location.href);
         url.searchParams.set('id', input);
         window.history.pushState({ id: input }, '', url.toString());
       } catch (e) {
-        console.warn("NostrSlide: URL state update suppressed.", e);
+        console.warn('NostrSlide: URL state update suppressed.', e);
       }
     }
 
@@ -77,7 +81,7 @@ function App() {
       const params = new URLSearchParams(window.location.search);
       const id = params.get('id');
       const langParam = params.get('lang') as Language;
-      
+
       if (langParam && (langParam === 'ja' || langParam === 'en')) {
         setLang(langParam);
       }
@@ -86,22 +90,22 @@ function App() {
         handleFetchThread(id);
       }
     } catch (e) {
-      console.warn("NostrSlide: Could not read URL parameters.", e);
+      console.warn('NostrSlide: Could not read URL parameters.', e);
     }
   }, []);
 
   return (
     <div className="font-sans">
       {appState === AppState.READY && slides.length > 0 ? (
-        <SlideDeck 
-          slides={slides} 
-          onBack={handleReset} 
+        <SlideDeck
+          slides={slides}
+          onBack={handleReset}
           nostrId={currentId}
           lang={lang}
         />
       ) : (
-        <InputForm 
-          onSubmit={handleFetchThread} 
+        <InputForm
+          onSubmit={handleFetchThread}
           isLoading={appState === AppState.LOADING}
           error={error}
           lang={lang}

@@ -1,6 +1,7 @@
-import React, { useState, useEffect, useRef } from 'react';
+import type React from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Icons } from '../constants';
-import { Language } from '../types';
+import type { Language } from '../types';
 import { translations } from '../translations';
 
 interface InputFormProps {
@@ -11,7 +12,13 @@ interface InputFormProps {
   setLang: (lang: Language) => void;
 }
 
-export const InputForm: React.FC<InputFormProps> = ({ onSubmit, isLoading, error, lang, setLang }) => {
+export const InputForm: React.FC<InputFormProps> = ({
+  onSubmit,
+  isLoading,
+  error,
+  lang,
+  setLang,
+}) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [inputValue, setInputValue] = useState('');
   const modalRef = useRef<HTMLDivElement>(null);
@@ -41,20 +48,35 @@ export const InputForm: React.FC<InputFormProps> = ({ onSubmit, isLoading, error
   }, []);
 
   const clientLinks = [
-    { name: 'Damus', platform: 'iOS', url: 'https://apps.apple.com/jp/app/damus/id1628663131', icon: <Icons.Share /> },
-    { name: 'Amethyst', platform: 'Android', url: 'https://play.google.com/store/apps/details?id=com.vitorpamplona.amethyst', icon: <Icons.Play /> },
-    { name: 'Nostter', platform: 'Web', url: 'https://nostter.app/', icon: <Icons.Maximize /> }
+    {
+      name: 'Damus',
+      platform: 'iOS',
+      url: 'https://apps.apple.com/jp/app/damus/id1628663131',
+      icon: <Icons.Share />,
+    },
+    {
+      name: 'Amethyst',
+      platform: 'Android',
+      url: 'https://play.google.com/store/apps/details?id=com.vitorpamplona.amethyst',
+      icon: <Icons.Play />,
+    },
+    {
+      name: 'Nostter',
+      platform: 'Web',
+      url: 'https://nostter.app/',
+      icon: <Icons.Maximize />,
+    },
   ];
 
   const LanguageSwitcher = () => (
     <div className="flex bg-white/10 rounded-full p-1 border border-white/10 backdrop-blur-sm shadow-xl">
-      <button 
+      <button
         onClick={() => setLang('ja')}
         className={`px-3 py-1 text-xs font-bold rounded-full transition-all ${lang === 'ja' ? 'bg-nostr-primary text-white shadow-lg' : 'text-gray-400 hover:text-white'}`}
       >
         JA
       </button>
-      <button 
+      <button
         onClick={() => setLang('en')}
         className={`px-3 py-1 text-xs font-bold rounded-full transition-all ${lang === 'en' ? 'bg-nostr-primary text-white shadow-lg' : 'text-gray-400 hover:text-white'}`}
       >
@@ -70,13 +92,21 @@ export const InputForm: React.FC<InputFormProps> = ({ onSubmit, isLoading, error
         <LanguageSwitcher />
       </div>
 
-      <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-nostr-primary/10 blur-[120px] rounded-full" aria-hidden="true" />
-      <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-fuchsia-500/10 blur-[120px] rounded-full" aria-hidden="true" />
+      <div
+        className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-nostr-primary/10 blur-[120px] rounded-full"
+        aria-hidden="true"
+      />
+      <div
+        className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-fuchsia-500/10 blur-[120px] rounded-full"
+        aria-hidden="true"
+      />
 
       <div className="relative z-10 w-full max-w-lg text-center space-y-10 animate-fade-in">
         <header className="space-y-6">
           <div className="mx-auto flex items-center justify-center w-24 h-24 rounded-3xl bg-gradient-to-br from-nostr-primary to-fuchsia-500 shadow-2xl shadow-nostr-primary/30 transform -rotate-6 transition-transform hover:rotate-0 duration-500">
-             <span className="text-white scale-[1.8]"><Icons.Zap /></span>
+            <span className="text-white scale-[1.8]">
+              <Icons.Zap />
+            </span>
           </div>
           <div className="space-y-2">
             <h1 className="text-6xl font-black tracking-tighter bg-clip-text text-transparent bg-gradient-to-r from-white via-white to-gray-500 sm:text-7xl">
@@ -93,42 +123,49 @@ export const InputForm: React.FC<InputFormProps> = ({ onSubmit, isLoading, error
           className="group relative inline-flex items-center justify-center px-10 py-6 text-xl font-bold rounded-full text-white bg-gradient-to-r from-nostr-primary to-fuchsia-600 shadow-2xl shadow-nostr-primary/40 transition-all duration-300 hover:scale-105 active:scale-95 hover:shadow-nostr-primary/60 focus:ring-4 focus:ring-white/20"
           aria-haspopup="dialog"
         >
-          <span className="mr-3 scale-110"><Icons.Play /></span>
+          <span className="mr-3 scale-110">
+            <Icons.Play />
+          </span>
           {t.hero.cta}
         </button>
 
         <footer className="pt-12">
-           <p className="text-gray-600 text-xs italic opacity-60">
-             {t.hero.tagline}
-           </p>
+          <p className="text-gray-600 text-xs italic opacity-60">
+            {t.hero.tagline}
+          </p>
         </footer>
       </div>
 
       {isModalOpen && (
-        <div 
+        <div
           className="fixed inset-0 z-[200] flex items-center justify-center p-4 sm:p-6 animate-fade-in"
           role="dialog"
           aria-modal="true"
           aria-labelledby="modal-title"
         >
-          <div 
-            className="absolute inset-0 bg-black/80 backdrop-blur-md transition-opacity" 
+          <div
+            className="absolute inset-0 bg-black/80 backdrop-blur-md transition-opacity"
             onClick={() => setIsModalOpen(false)}
             aria-hidden="true"
           />
 
-          <div 
+          <div
             ref={modalRef}
             className="relative w-full max-w-2xl bg-nostr-surface border border-white/10 rounded-[2.5rem] shadow-2xl flex flex-col max-h-[90vh] overflow-hidden animate-fade-in"
           >
             <div className="flex items-center justify-between p-6 sm:p-8 border-b border-white/5">
-              <h2 id="modal-title" className="text-2xl font-bold flex items-center gap-3">
-                <span className="text-nostr-secondary"><Icons.Zap /></span>
+              <h2
+                id="modal-title"
+                className="text-2xl font-bold flex items-center gap-3"
+              >
+                <span className="text-nostr-secondary">
+                  <Icons.Zap />
+                </span>
                 {t.modal.title}
               </h2>
               <div className="flex items-center gap-4">
                 <LanguageSwitcher />
-                <button 
+                <button
                   onClick={() => setIsModalOpen(false)}
                   className="p-2 hover:bg-white/5 rounded-full text-gray-400 hover:text-white transition focus:ring-2 focus:ring-white"
                   aria-label={t.modal.close}
@@ -142,7 +179,10 @@ export const InputForm: React.FC<InputFormProps> = ({ onSubmit, isLoading, error
               <section className="space-y-6">
                 <form onSubmit={handleSubmit} className="space-y-4">
                   <div className="space-y-3">
-                    <label htmlFor="note-id-modal" className="text-xs font-bold text-nostr-secondary uppercase tracking-[0.2em] ml-1">
+                    <label
+                      htmlFor="note-id-modal"
+                      className="text-xs font-bold text-nostr-secondary uppercase tracking-[0.2em] ml-1"
+                    >
                       {t.modal.label}
                     </label>
                     <input
@@ -161,7 +201,9 @@ export const InputForm: React.FC<InputFormProps> = ({ onSubmit, isLoading, error
                     type="submit"
                     disabled={isLoading || !inputValue}
                     className={`group relative w-full flex justify-center py-5 px-6 text-lg font-bold rounded-2xl text-white shadow-xl transition-all duration-300 ${
-                      isLoading ? 'bg-gray-700 cursor-not-allowed' : 'bg-gradient-to-r from-nostr-primary to-fuchsia-600 hover:brightness-110 active:scale-[0.98]'
+                      isLoading
+                        ? 'bg-gray-700 cursor-not-allowed'
+                        : 'bg-gradient-to-r from-nostr-primary to-fuchsia-600 hover:brightness-110 active:scale-[0.98]'
                     }`}
                   >
                     {isLoading ? t.modal.loading : t.modal.submit}
@@ -182,13 +224,23 @@ export const InputForm: React.FC<InputFormProps> = ({ onSubmit, isLoading, error
                 </h3>
                 <div className="grid grid-cols-1 gap-4">
                   {t.steps.map((step, idx) => (
-                    <div key={idx} className="flex gap-5 p-5 bg-white/5 border border-white/5 rounded-2xl items-start">
-                      <div className="flex-shrink-0 w-10 h-10 rounded-xl bg-nostr-primary/20 text-nostr-primary flex items-center justify-center font-black" aria-hidden="true">
+                    <div
+                      key={idx}
+                      className="flex gap-5 p-5 bg-white/5 border border-white/5 rounded-2xl items-start"
+                    >
+                      <div
+                        className="flex-shrink-0 w-10 h-10 rounded-xl bg-nostr-primary/20 text-nostr-primary flex items-center justify-center font-black"
+                        aria-hidden="true"
+                      >
                         {idx + 1}
                       </div>
                       <div className="space-y-0.5">
-                        <h4 className="font-bold text-sm text-white">{step.title}</h4>
-                        <p className="text-gray-400 text-xs leading-relaxed">{step.desc}</p>
+                        <h4 className="font-bold text-sm text-white">
+                          {step.title}
+                        </h4>
+                        <p className="text-gray-400 text-xs leading-relaxed">
+                          {step.desc}
+                        </p>
                       </div>
                     </div>
                   ))}
@@ -208,12 +260,19 @@ export const InputForm: React.FC<InputFormProps> = ({ onSubmit, isLoading, error
                       rel="noopener noreferrer"
                       className="group flex items-center p-4 bg-black/40 hover:bg-nostr-primary/10 border border-white/5 rounded-xl transition-all duration-300 focus:ring-2 focus:ring-nostr-primary"
                     >
-                      <div className="w-8 h-8 rounded-lg bg-gray-800 flex items-center justify-center text-gray-400 group-hover:text-nostr-primary group-hover:bg-nostr-primary/20 transition-all mr-3" aria-hidden="true">
+                      <div
+                        className="w-8 h-8 rounded-lg bg-gray-800 flex items-center justify-center text-gray-400 group-hover:text-nostr-primary group-hover:bg-nostr-primary/20 transition-all mr-3"
+                        aria-hidden="true"
+                      >
                         {link.icon}
                       </div>
                       <div className="flex flex-col min-w-0">
-                        <span className="font-bold text-[13px] text-white truncate">{link.name}</span>
-                        <span className="text-[9px] text-gray-500 font-bold uppercase">{link.platform}</span>
+                        <span className="font-bold text-[13px] text-white truncate">
+                          {link.name}
+                        </span>
+                        <span className="text-[9px] text-gray-500 font-bold uppercase">
+                          {link.platform}
+                        </span>
                       </div>
                     </a>
                   ))}

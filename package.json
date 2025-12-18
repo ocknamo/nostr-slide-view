@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "format": "biome format --write .",
-    "lint": "biome lint .",
+    "format-check": "biome format .",
     "test": "vitest run",
     "test:watch": "vitest"
   },
@@ -13,7 +13,9 @@
   "license": "MIT",
   "devDependencies": {
     "@biomejs/biome": "1.9.4",
-    "vitest": "^3.0.0",
-    "nostr-tools": "^2.19.3"
+    "@vitejs/plugin-react": "^5.1.2",
+    "nostr-tools": "^2.19.3",
+    "path": "^0.12.7",
+    "vitest": "^3.0.0"
   }
 }

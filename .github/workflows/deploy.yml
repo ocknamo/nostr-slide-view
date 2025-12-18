@@ -49,10 +49,16 @@ jobs:
           echo "Checking if JavaScript files exist:"
           ls -la dist/assets/*.js 2>/dev/null && echo "✓ JS files found" || echo "✗ No JS files found"
 
+      - name: Create tarball for debugging
+        run: |
+          echo "Creating tarball of dist directory..."
+          tar -czf dist-backup.tar.gz dist/
+          tar -tzf dist-backup.tar.gz | head -20
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v4
         with:
-          path: dist
+          path: ./dist
 
   deploy:
     environment:

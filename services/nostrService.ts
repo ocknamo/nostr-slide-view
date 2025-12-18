@@ -16,7 +16,7 @@ const IMAGE_REGEX = /(https?:\/\/.*\.(?:png|jpg|jpeg|gif|webp|svg)(?:\?.*)?)/gi;
 
 export const extractImagesFromContent = (content: string): string[] => {
   const splitted = content.split(/[\s]+/);
-  const matches = [];
+  const matches: string[] = [];
   splitted.forEach((c) => {
     const match = c.match(IMAGE_REGEX);
     if (match) {

@@ -40,28 +40,10 @@ jobs:
           NODE_ENV: production
         run: npm run build
 
-      - name: Verify build output
-        run: |
-          echo "Listing dist directory contents:"
-          ls -laR dist/
-          echo "Checking if assets directory exists:"
-          test -d dist/assets && echo "✓ assets directory exists" || echo "✗ assets directory missing"
-          echo "Checking if JavaScript files exist:"
-          ls -la dist/assets/*.js 2>/dev/null && echo "✓ JS files found" || echo "✗ No JS files found"
-
-      - name: Create tarball for debugging
-        run: |
-          echo "Creating tarball of dist directory..."
-          tar -czf dist-backup.tar.gz dist/
-          tar -tzf dist-backup.tar.gz | head -20
-
       - name: Prepare upload directory
         run: |
-          echo "Creating _site directory for upload..."
           mkdir -p _site
           cp -r dist/* _site/
-          echo "Contents of _site:"
-          ls -laR _site/
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v4
@@ -73,44 +55,6 @@ jobs:
     runs-on: ubuntu-latest
     needs: build
     steps:
-      - name: Download artifact for debugging
-        uses: actions/download-artifact@v4
-        with:
-          name: github-pages
-          path: ./artifact-debug
-
-      - name: Extract and inspect artifact
-        run: |
-          echo "Artifact contents:"
-          ls -la ./artifact-debug/
-          echo "Extracting artifact..."
-          cd ./artifact-debug
-          if [ -f artifact.tar ]; then
-            echo "Files in artifact.tar:"
-            tar -tf artifact.tar
-            mkdir -p /tmp/extracted
-            tar -xf artifact.tar -C /tmp/extracted
-            echo "Extracted files:"
-            ls -laR /tmp/extracted/
-          else
-            echo "No artifact.tar found"
-          fi
-
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
-      
-      - name: Verify deployment
-        run: |
-          echo "Deployment completed!"
-          echo "Site URL: ${{ steps.deployment.outputs.page_url }}"
-          echo "Waiting 10 seconds for deployment to propagate..."
-          sleep 10
-          echo "Checking deployed site..."
-          curl -I "${{ steps.deployment.outputs.page_url }}" || true
-          echo ""
-          echo "Fetching index.html to check script tags..."
-          curl -s "${{ steps.deployment.outputs.page_url }}" | grep -A 2 -B 2 "script" || true
-          echo ""
-          echo "Checking specific JS file..."
-          curl -I "${{ steps.deployment.outputs.page_url }}assets/index-DmQ2YL0V.js" || true

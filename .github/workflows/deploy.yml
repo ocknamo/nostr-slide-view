@@ -73,6 +73,27 @@ jobs:
     runs-on: ubuntu-latest
     needs: build
     steps:
+      - name: Download artifact for debugging
+        uses: actions/download-artifact@v4
+        with:
+          name: github-pages
+          path: ./artifact-debug
+
+      - name: Extract and inspect artifact
+        run: |
+          echo "Artifact contents:"
+          ls -la ./artifact-debug/
+          echo "Extracting artifact..."
+          cd ./artifact-debug
+          if [ -f artifact.tar ]; then
+            tar -tf artifact.tar | head -30
+            echo "First few files in artifact:"
+            tar -xf artifact.tar -C /tmp/extracted
+            ls -laR /tmp/extracted/ | head -50
+          else
+            echo "No artifact.tar found"
+          fi
+
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
